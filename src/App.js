@@ -1,25 +1,99 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, {Component} from 'react'
+import Board from 'react-trello'
+
+const data = require('./data.json')
+
+const handleDragStart = (cardId, laneId) => {
+    console.log('drag started')
+    console.log(`cardId: ${cardId}`)
+    console.log(`laneId: ${laneId}`)
 }
 
-export default App;
+const handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
+    console.log('drag ended')
+    console.log(`cardId: ${cardId}`)
+    console.log(`sourceLaneId: ${sourceLaneId}`)
+    console.log(`targetLaneId: ${targetLaneId}`)
+}
+
+class App extends Component {
+    state = {boardData: {lanes: []}}
+
+    setEventBus = (eventBus) => {
+        this.setState({eventBus})
+    }
+
+    async componentWillMount() {
+        const response = await this.getBoard()
+        this.setState({boardData: response})
+    }
+
+    getBoard() {
+        return new Promise((resolve) => {
+            resolve(data)
+        })
+    }
+
+    completeCard = () => {
+        this.state.eventBus.publish({
+            type: 'ADD_CARD',
+            laneId: 'COMPLETED',
+            card: {
+                // id: '',
+                // title: '',
+            },
+        })
+        this.state.eventBus.publish({
+            type: 'REMOVE_CARD',
+            laneId: 'PLANNED',
+            cardId: '',
+        })
+    }
+
+    addCard = () => {
+        this.state.eventBus.publish({
+            type: 'ADD_CARD',
+            laneId: 'BLOCKED',
+            card: {
+                // id: '',
+                // title: '',
+            },
+        })
+    }
+
+    shouldReceiveNewData = (nextData) => {
+        console.log('New card has been added')
+        console.log(nextData)
+    }
+
+    handleCardAdd = (card, laneId) => {
+        console.log(`New card added to lane ${laneId}`)
+        console.dir(card)
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <div className="App-header">
+                    <h3 className="text-center">My Trello</h3>
+                </div>
+                <div className="App-intro">
+                    <Board
+                        editable
+                        onCardAdd={this.handleCardAdd}
+                        data={this.state.boardData}
+                        draggable
+                        onDataChange={this.shouldReceiveNewData}
+                        eventBusHandle={this.setEventBus}
+                        handleDragStart={handleDragStart}
+                        handleDragEnd={handleDragEnd}
+                    />
+                </div>
+            </div>
+        )
+    }
+}
+
+export default App

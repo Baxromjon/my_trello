@@ -1,0 +1,64 @@
+{
+  "lanes": [
+    {
+      "id": "PLANNED",
+      "title": "Planned Tasks",
+      "style": {"width": 280},
+      "cards": [
+        {
+          "id": "",
+          "title": "",
+          "cardStyle": { "width": 270, "maxWidth": 270, "margin": "auto", "marginBottom": 5 }
+        }
+      ]
+    },
+    {
+      "id": "WIP",
+      "title": "In Progress",
+      "style": {"width": 280},
+      "cards": [
+        {
+          "id": "",
+          "title": "",
+          "cardStyle": { "width": 270, "maxWidth": 270, "margin": "auto", "marginBottom": 5 }
+        }
+      ]
+    },
+    {
+      "id": "COMPLETED",
+      "title": "Completed",
+      "style": {"width": 280},
+      "cards": [
+        {
+          "id": "",
+          "title": "",
+          "cardStyle": { "width": 270, "maxWidth": 270, "margin": "auto", "marginBottom": 5 }
+        }
+      ]
+    },
+    {
+      "id": "REPEAT",
+      "title": "Repeat",
+      "style": {"width": 280},
+      "cards": [
+        {
+          "id": "",
+          "title": "",
+          "cardStyle": { "width": 270, "maxWidth": 270, "margin": "auto", "marginBottom": 5 }
+        }
+      ]
+    },
+    {
+      "id": "ARCHIVED",
+      "title": "Archived",
+      "style": {"width": 280},
+      "cards": [
+        {
+          "id": "",
+          "title": "",
+          "cardStyle": { "width": 270, "maxWidth": 270, "margin": "auto", "marginBottom": 5 }
+        }
+      ]
+    }
+  ]
+}
